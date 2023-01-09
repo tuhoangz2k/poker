@@ -6,6 +6,7 @@ import { Container, Footer, ListCardUser, MoneyUser } from "./User.styled";
 import type { Variants } from "framer-motion";
 import { ICard } from "types/card.type";
 import calcPoint from "utils/calcPoint";
+import ProgressComp from "components/Progress";
 
 interface IUserProps {
   user: IUser;
@@ -16,6 +17,7 @@ interface IUserProps {
   isStartDistributeCards: boolean;
   handleStartDistributeCards: () => void;
   handleFlipCard: () => void;
+  percent:number
 }
 
 const User = (props: IUserProps) => {
@@ -28,6 +30,7 @@ const User = (props: IUserProps) => {
     isFlipCard,
     isEndDistributeCards,
     isStartDistributeCards,
+    percent
   } = props;
   const pointUser = user.cards.reduce(
     (sum: number, card: ICard) => sum + card.number,
@@ -68,6 +71,7 @@ const User = (props: IUserProps) => {
 
   return (
     <Container>
+      <ProgressComp percent={percent}/>
       <ListCardUser>
         {isFlipCard && (
           <>

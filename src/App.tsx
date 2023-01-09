@@ -15,7 +15,8 @@ import { dataUsers } from "data/users";
 
 const Container = styled.div`
   position: relative;
-  max-width: 1366px;
+  /* max-width: 1366px; */
+  max-width: 100%;
   margin: 0 auto;
   height: 100vh;
   overflow: hidden;
@@ -74,6 +75,7 @@ const QuitGameButton = styled(Button)``;
 const App = () => {
   const [isStartDistributeCards, setIsStartDistributeCards] = useState(false);
   const [isEndDistributeCards, setIsEndDistributeCards] = useState(false);
+  const [percent, setPercent] = useState(0);
   const [isFlipCard, setIsFlipCard] = useState(false);
   const [isStartGame, setIsStartGame] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
@@ -166,14 +168,15 @@ const App = () => {
 
   useEffect(() => {
     if (!isStartDistributeCards) return;
-
     const id = setTimeout(() => {
       setIsEndDistributeCards(true);
     }, 4000);
-
-    return () => clearTimeout(id);
+    return () => {
+      clearTimeout(id)
+    };
   }, [isStartDistributeCards]);
 
+  
   return (
     <Container>
       {!isStartGame ? (
@@ -238,6 +241,7 @@ const App = () => {
             bets={bets}
             key={user.id}
             user={user}
+            percent={percent}
             isFlipCard={isFlipCard}
             handleStartDistributeCards={handleStartDistributeCards}
             handleFlipCard={handleFlipCard}
@@ -246,6 +250,7 @@ const App = () => {
           />
         );
       })}
+      
     </Container>
   );
 };
